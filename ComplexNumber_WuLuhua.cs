@@ -17,7 +17,7 @@ namespace ComplexCalculator
         float imaginary = 0;
 
         //0复数
-        public ComplexNumber()
+        private ComplexNumber()
         {
         }
 
@@ -98,9 +98,9 @@ namespace ComplexCalculator
                 //用于储存结果的复数实例
                 ComplexNumber result =  new ComplexNumber();
                 //根据二项式展开公式 (a+bi)^n = C(n,k) * a^k * b^(n-k) * i^(n-k) 计算
-                for (int k=0;k<+pow;k++)
+                for (int k=0;k<=pow;k++)
                 {
-                   result = result + CombineNumber(pow,k) * (float)Math.Pow(complex.real,k) * (float)Math.Pow( complex.imaginary,pow-k)*IPow(pow-k);
+                   result += CombineNumber(pow,k) * (float)Math.Pow(complex.real,k) * (float)Math.Pow(complex.imaginary, pow -k) * IPow( pow -k);
                 }
                 return result;
             }
@@ -129,7 +129,8 @@ namespace ComplexCalculator
          *      ========
          *      
          *      对n>0    直接求模
-         *      对n<=0   令t=-n,  那么t>=0,
+         *      对n=0    返回1
+         *      对n<0   令t=-n,  那么t>0,
          *      i^n = (i^-1)^n = (-i)^n=(-1)^-n * i^-n = （-1）^t * i ^t
          */
         private static ComplexNumber IPow(int n)
@@ -163,16 +164,24 @@ namespace ComplexCalculator
         }
         
         //组合数计算函数C(n,k)
+        //C(n,k) = n!/k!
+        //居然记错了... 是C(n,k)=n!/k!(n-k)!
         private static int CombineNumber(int n,int k)
         {
             int result = 1;
-            for (int i = k;i<=n;i++)
+            for (int i = k+1;i<=n;i++)
             {
-                result *= k;
+                result *= i;
+            }
+
+            for (int j = 2; j<=n-k; j++)
+            {
+                result /= j;
             }
             return result;
         }
 
+        //喷字函数
         public override String ToString()
         {
             return "("+real.ToString() + ") + (" + imaginary.ToString() + ") i ";
