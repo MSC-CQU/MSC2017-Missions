@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ComplexClass{
-    public class Complex{
+namespace ComplexClass {
+    public class Complex {
 
 
         public float constant;
@@ -26,29 +26,30 @@ namespace ComplexClass{
         }
         public void Multiply(Complex ComplexObj) {
             float constantTemp, coefficientTemp;
-            constantTemp = constant * ComplexObj.constant - coefficient* ComplexObj.coefficient;
-            coefficientTemp = constant* ComplexObj.coefficient+ coefficient* ComplexObj.constant;
+            constantTemp = constant * ComplexObj.constant - coefficient * ComplexObj.coefficient;
+            coefficientTemp = constant * ComplexObj.coefficient + coefficient * ComplexObj.constant;
             constant = constantTemp;
             coefficient = coefficientTemp;
         }
         public void Divide(Complex ComplexObj) {
             float constantTemp, coefficientTemp;
-            constantTemp = (constant * ComplexObj.constant + coefficient * ComplexObj.coefficient)/(ComplexObj.constant* ComplexObj.constant+ ComplexObj.coefficient* ComplexObj.coefficient);
-            coefficientTemp = (coefficient * ComplexObj.constant - constant * ComplexObj.coefficient) /(ComplexObj.constant * ComplexObj.constant + ComplexObj.coefficient * ComplexObj.coefficient);
+            constantTemp = (constant * ComplexObj.constant + coefficient * ComplexObj.coefficient) / (ComplexObj.constant * ComplexObj.constant + ComplexObj.coefficient * ComplexObj.coefficient);
+            coefficientTemp = (coefficient * ComplexObj.constant - constant * ComplexObj.coefficient) / (ComplexObj.constant * ComplexObj.constant + ComplexObj.coefficient * ComplexObj.coefficient);
             constant = constantTemp;
             coefficient = coefficientTemp;
         }
         public void PowerOn(int PowerOnNum) {
-
-            for(int i = 1; i < PowerOnNum; i++) {
-                this.Multiply(this);
+            Complex ComplexObjTemp = new Complex(this.constant, this.coefficient);
+            for (int i = 1; i < PowerOnNum; i++) {
+                this.Multiply(ComplexObjTemp);
             }
         }
-        public string Out(){
+        public string Out() {
             string coefficientTemp;
             if (coefficient >= 0) {
                 coefficientTemp = "+" + coefficient.ToString();
-            }else {
+            }
+            else {
                 coefficientTemp = coefficient.ToString();
             }
             return constant.ToString() + coefficientTemp + "i";
@@ -74,9 +75,9 @@ namespace ComplexClass{
             return ComplexObjTemp;
         }
     }
-    class Program{
-        static void Main(string[] args){
-            Complex demo = new Complex(-2,-3);
+    class Program {
+        static void Main(string[] args) {
+            Complex demo = new Complex(-2, -3);
             Complex demo2 = new Complex(3, 4);
             Console.WriteLine("(-2-3i)+(3+4i):");
             Complex demo3 = demo + demo2;
@@ -85,11 +86,14 @@ namespace ComplexClass{
             demo3 = demo - demo2;
             Console.WriteLine(demo3.Out());
             Console.WriteLine("(-2-3i)*(3+4i):");
-            demo3 = demo *demo2;
+            demo3 = demo * demo2;
             Console.WriteLine(demo3.Out());
             Console.WriteLine("(-2-3i)/(3+4i):");
             demo3 = demo / demo2;
             Console.WriteLine(demo3.Out());
+            Console.WriteLine("(-2-3i)^2");
+            demo.PowerOn(2);
+            Console.WriteLine(demo.Out());
             Console.Read();
         }
     }
