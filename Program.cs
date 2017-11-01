@@ -4,100 +4,141 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace fushulei//拼音命名大法
+namespace miscrosoft_wjq_homework
 {
-    public class Dovahkiin//某位大佬提到的龙语瞎JB命名大法
-    {
-        /*
-         * 这就是一知半解的学习外加各论坛取经的产物，所以说格式大概会很鬼畜
-         * 像summary这些完全照搬的东西...大佬们将就看看吧
-         * 另外，为了养生，这个玩意没有进过任何测试QAQ
-         * 还可能有敲错字母而自己还不知道的傻逼行为
-         * 总的来说，感觉自己写了个bug
-         * 以上
-         */
+    class Complex
 
-        private double shibu;//实部
-        private double xubu;//虚部
-        ///<summary>
-        ///抓取一只活蹦乱跳的实部
-        ///</summary>
-        public double Shibu
+    {
+
+        public double real;
+
+        public double imaginary;
+
+        public Complex(double real, double imaginary)     
+
         {
-            get { return shibu; }
-            set { shibu = value; }
+
+            this.real = real;
+
+            this.imaginary = imaginary;
+
         }
-        ///<summary>
-        ///再抓一只怪迷日眼的虚部
-        ///</summary>
-        public double Xubu
+       
+
+        
+
+        public static Complex operator +(Complex c1, Complex c2)
+
         {
-            get { return xubu; }
-            set { xubu = value; }
+
+            return new Complex(c1.real + c2.real, c1.imaginary + c2.imaginary);
+
         }
-        public Dovahkiin(double shibu, double xubu)
+
+        
+
+        public static Complex operator -(Complex c1, Complex c2)
+
         {
-            this.shibu = shibu;
-            this.xubu = xubu;
+
+            return new Complex(c1.real - c2.real, c1.imaginary - c2.imaginary);
+
         }
-        ///<summary>
-        ///加法重载
-        ///</summary>
-        ///<param name="D">加数</param>
-        ///<param name="d">加数</param>
-        ///<returns>相加的结果</returns>
-        public static Dovahkiin operator +(Dovahkiin D, Dovahkiin d)
+        
+
+        public static Complex operator *(Complex c1, Complex c2)
+
         {
-            return new Dovahkiin(D.shibu + d.shibu, D.xubu + d.xubu);
+
+            return new Complex(c1.real * c2.real - c1.imaginary * c2.imaginary, c1.real * c2.imaginary + c1.imaginary * c2.real);
+
         }
-        ///<summary>
-        ///减法重载
-        ///</summary>
-        ///<param name="D">被减数</param>
-        ///<param name="d">减数</param>
-        ///<returuns>相减结果</returuns>
-        public static Dovahkiin operator -(Dovahkiin D, Dovahkiin d)
+
+        
+
+        public static Complex operator /(Complex c1, Complex c2)
+
         {
-            return new Dovahkiin(D.shibu - d.shibu, D.xubu - d.xubu);
+
+            double cd = c2.real * c2.real + c2.imaginary * c2.imaginary;
+
+            return new Complex((c1.real * c2.real + c1.imaginary * c2.imaginary) / cd, (c1.imaginary * c2.real - c1.real * c2.imaginary) / cd);
+
         }
-        ///<summary>
-        ///乘法
-        ///</summary>
-        ///<param name="D">乘数</param>
-        ///<param name="d">乘数</param>
-        ///<returuns>相乘结果</returuns>
-        public static Dovahkiin operator *(Dovahkiin d, Dovahkiin D)
+       
+
+
+
+        public override string ToString()
+
         {
-            //乘法咋算的来着。。
-            //算了去论坛扒一个
-            //(a+b*i)*(c+d*i)=(ac-bd)+(ad+bc)*i
-            return new Dovahkiin(d.shibu * D.shibu - d.xubu * D.xubu, d.shibu * D.xubu + d.xubu * D.shibu);
+
+            return (String.Format("{0} + {1}i", real, imaginary));
+
         }
-        ///<summary>
-        ///除法
-        ///</summary>
-        ///<param name="D">被除数</param>
-        ///<param name="d">除数</param>
-        ///<returns>相除结果</returns>
-        public static Dovahkiin operator /(Dovahkiin D, Dovahkiin d)
+
+    }
+
+    class TestComplex
+
+    {
+
+        static void Main()
+
         {
-            if (d.shibu == 0 && d.xubu == 0)
+            Console.WriteLine("please enter a real number:");
+            int a =  Console.Read();
+            Console.WriteLine("please enter a imaginary number:");
+            int b = Console.Read();
+            Console.WriteLine("please enter a real number:");
+            int c = Console.Read();
+            Console.WriteLine("please enter a imaginary number:");
+            int d = Console.Read();
+
+            Complex num1 = new Complex(a, b);
+            
+            Complex num2 = new Complex(c, d);
+
+            Complex sum = num1 + num2;               
+
+            Complex sub = num1 - num2;               
+
+            Complex multiplication = num1 * num2;    
+
+            Complex division = num1 / num2;          
+            
+
+            Console.WriteLine("第一个复数:  {0}", num1);
+
+            Console.WriteLine("第二个复数: {0}", num2);
+
+            Console.WriteLine("复数和: {0}", sum);
+
+            Console.WriteLine("复数差: {0}", sub);
+
+            Console.WriteLine("复数积: {0}", multiplication);
+
+            Console.WriteLine("复数商: {0}", division);
+
+            Console.WriteLine("please enter a real number:");
+            int g = Console.Read();
+            Console.WriteLine("please enter a imaginary number:");
+            int e = Console.Read();
+
+            Console.WriteLine("please enter a  number as the power:");
+            int f = Console.Read();
+
+            Complex num3 = new Complex(g, e);
+            
+            for (int i = 1; i <= f;i++)
             {
-                Console.Write ("除数不为零啊亲");
+                Complex power = num3 * num3;
+                
             }
-            return new Dovahkiin((D.shibu * d.shibu + d.xubu * D.xubu) / (d.shibu * d.shibu + d.xubu + d.xubu), (D.xubu * d.shibu - d.xubu * D.shibu) / (d.shibu * d.shibu + d.xubu + d.xubu));
+            
+
+            Console.WriteLine("乘方是: {0}", power);
         }
-        ///<summary>
-        ///求幂
-        ///</summary>
-        public static Dovahkiin Dpow(Dovahkiin d,double n)
-        {
-            double x = Math.Pow(d.shibu * d.shibu + d.xubu * d.xubu, n / 2);//难以言说的操作
-            double y = Math.Pow(d.shibu * d.shibu + d.xubu * d.xubu, 1 / 2);//求模
-            double a = Math.Asin(d.xubu / y);//求角度
-            double b = Math.Cos(n * a);
-            double c = Math.Sin(n * a);
-            return new Dovahkiin(x * b, x * c);//用x(cosθ+sinθ)表示结果
-        }
+
     }
 }
