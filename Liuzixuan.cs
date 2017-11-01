@@ -3,104 +3,100 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//
-//
-//让你们见识下
-//薛定谔命名法！
-//
-//
-//
-namespace BgNr6ELz {
-    public class I8BaJWce {
 
 
-        public float ykQCKKhF;
-        public float lIjrvdRR;
-        public I8BaJWce(float FnNoV1pP, float rScOmP) {
-            ykQCKKhF = FnNoV1pP;
-            lIjrvdRR = rScOmP;
+namespace ComplexClass {
+    public class Complex {
+
+
+        public float constant;
+        public float coefficient;
+        public Complex(float inputValue1, float inputValue2) {
+            constant = inputValue1;
+            coefficient = inputValue2;
         }
 
-        public void nmsZ6D5f(I8BaJWce stkymb0T) {
-            ykQCKKhF += stkymb0T.ykQCKKhF;
-            lIjrvdRR += stkymb0T.lIjrvdRR;
+        public void Add(Complex ComplexObj) {
+            constant += ComplexObj.constant;
+            coefficient += ComplexObj.coefficient;
         }
 
-        public void IG57gqL2(I8BaJWce stkymb0T) {
-            ykQCKKhF -= stkymb0T.ykQCKKhF;
-            lIjrvdRR -= stkymb0T.lIjrvdRR;
+        public void Substract(Complex ComplexObj) {
+            constant -= ComplexObj.constant;
+            coefficient -= ComplexObj.coefficient;
         }
-        public void JvNdqRs(I8BaJWce stkymb0T) {
-            float JIy3rc7H, rFSeJ0rg;
-            JIy3rc7H = ykQCKKhF * stkymb0T.ykQCKKhF - lIjrvdRR * stkymb0T.lIjrvdRR;
-            rFSeJ0rg = ykQCKKhF * stkymb0T.lIjrvdRR + lIjrvdRR * stkymb0T.ykQCKKhF;
-            ykQCKKhF = JIy3rc7H;
-            lIjrvdRR = rFSeJ0rg;
+        public void Multiply(Complex ComplexObj) {
+            float constantTemp, coefficientTemp;
+            constantTemp = constant * ComplexObj.constant - coefficient * ComplexObj.coefficient;
+            coefficientTemp = constant * ComplexObj.coefficient + coefficient * ComplexObj.constant;
+            constant = constantTemp;
+            coefficient = coefficientTemp;
         }
-        public void aTFvqji5(I8BaJWce stkymb0T) {
-            float JIy3rc7H, rFSeJ0rg;
-            JIy3rc7H = (ykQCKKhF * stkymb0T.ykQCKKhF + lIjrvdRR * stkymb0T.lIjrvdRR) / (stkymb0T.ykQCKKhF * stkymb0T.ykQCKKhF + stkymb0T.lIjrvdRR * stkymb0T.lIjrvdRR);
-            rFSeJ0rg = (lIjrvdRR * stkymb0T.ykQCKKhF - ykQCKKhF * stkymb0T.lIjrvdRR) / (stkymb0T.ykQCKKhF * stkymb0T.ykQCKKhF + stkymb0T.lIjrvdRR * stkymb0T.lIjrvdRR);
-            ykQCKKhF = JIy3rc7H;
-            lIjrvdRR = rFSeJ0rg;
+        public void Divide(Complex ComplexObj) {
+            float constantTemp, coefficientTemp;
+            constantTemp = (constant * ComplexObj.constant + coefficient * ComplexObj.coefficient) / (ComplexObj.constant * ComplexObj.constant + ComplexObj.coefficient * ComplexObj.coefficient);
+            coefficientTemp = (coefficient * ComplexObj.constant - constant * ComplexObj.coefficient) / (ComplexObj.constant * ComplexObj.constant + ComplexObj.coefficient * ComplexObj.coefficient);
+            constant = constantTemp;
+            coefficient = coefficientTemp;
         }
-        public void Ae3n0GHZ(int AsN5iToH) {
-            I8BaJWce l2A0BZNN = new I8BaJWce(this.ykQCKKhF, this.lIjrvdRR);
-            for (int i = 1; i < AsN5iToH; i++) {
-                this.JvNdqRs(l2A0BZNN);
+        public void PowerOn(int PowerOnNum) {
+            Complex ComplexObjTemp = new Complex(this.constant, this.coefficient);
+            for (int i = 1; i < PowerOnNum; i++) {
+                this.Multiply(ComplexObjTemp);
             }
         }
-        public string HxZ0AgSj() {
-            string l2A0BZNN;
-            if (lIjrvdRR >= 0) {
-                l2A0BZNN = "+" + lIjrvdRR.ToString();
+        public string Out() {
+            string coefficientTemp;
+            if (coefficient >= 0) {
+                coefficientTemp = "+" + coefficient.ToString();
             }
             else {
-                l2A0BZNN = lIjrvdRR.ToString();
+                coefficientTemp = coefficient.ToString();
             }
-            return ykQCKKhF.ToString() + l2A0BZNN + "i";
+            return constant.ToString() + coefficientTemp + "i";
         }
-        public static I8BaJWce operator +(I8BaJWce Pjlzrtf1, I8BaJWce JFP4dRHk) {
-            I8BaJWce bw3Glcdc = new I8BaJWce(Pjlzrtf1.ykQCKKhF, Pjlzrtf1.lIjrvdRR);
-            bw3Glcdc.nmsZ6D5f(JFP4dRHk);
-            return bw3Glcdc;
+        public static Complex operator +(Complex ComplexObj1, Complex ComplexObj12) {
+            Complex ComplexObjTemp = new Complex(ComplexObj1.constant, ComplexObj1.coefficient);
+            ComplexObjTemp.Add(ComplexObj12);
+            return ComplexObjTemp;
         }
-        public static I8BaJWce operator -(I8BaJWce Pjlzrtf1, I8BaJWce JFP4dRHk) {
-            I8BaJWce bw3Glcdc = new I8BaJWce(Pjlzrtf1.ykQCKKhF, Pjlzrtf1.lIjrvdRR);
-            bw3Glcdc.IG57gqL2(JFP4dRHk);
-            return bw3Glcdc;
+        public static Complex operator -(Complex ComplexObj1, Complex ComplexObj12) {
+            Complex ComplexObjTemp = new Complex(ComplexObj1.constant, ComplexObj1.coefficient);
+            ComplexObjTemp.Substract(ComplexObj12);
+            return ComplexObjTemp;
         }
-        public static I8BaJWce operator *(I8BaJWce Pjlzrtf1, I8BaJWce JFP4dRHk) {
-            I8BaJWce bw3Glcdc = new I8BaJWce(Pjlzrtf1.ykQCKKhF, Pjlzrtf1.lIjrvdRR);
-            bw3Glcdc.JvNdqRs(JFP4dRHk);
-            return bw3Glcdc;
+        public static Complex operator *(Complex ComplexObj1, Complex ComplexObj12) {
+            Complex ComplexObjTemp = new Complex(ComplexObj1.constant, ComplexObj1.coefficient);
+            ComplexObjTemp.Multiply(ComplexObj12);
+            return ComplexObjTemp;
         }
-        public static I8BaJWce operator /(I8BaJWce Pjlzrtf1, I8BaJWce JFP4dRHk) {
-            I8BaJWce bw3Glcdc = new I8BaJWce(Pjlzrtf1.ykQCKKhF, Pjlzrtf1.lIjrvdRR);
-            bw3Glcdc.aTFvqji5(JFP4dRHk);
-            return bw3Glcdc;
+        public static Complex operator /(Complex ComplexObj1, Complex ComplexObj12) {
+            Complex ComplexObjTemp = new Complex(ComplexObj1.constant, ComplexObj1.coefficient);
+            ComplexObjTemp.Divide(ComplexObj12);
+            return ComplexObjTemp;
         }
     }
     class Program {
         static void Main(string[] args) {
-            I8BaJWce demo = new I8BaJWce(-2, -3);
-            I8BaJWce demo2 = new I8BaJWce(3, 4);
+            Complex demo = new Complex(-2, -3);
+            Complex demo2 = new Complex(3, 4);
             Console.WriteLine("(-2-3i)+(3+4i):");
-            I8BaJWce demo3 = demo + demo2;
-            Console.WriteLine(demo3.HxZ0AgSj());
+            Complex demo3 = demo + demo2;
+            Console.WriteLine(demo.Out());
             Console.WriteLine("(-2-3i)-(3+4i):");
             demo3 = demo - demo2;
-            Console.WriteLine(demo3.HxZ0AgSj());
+            Console.WriteLine(demo3.Out());
             Console.WriteLine("(-2-3i)*(3+4i):");
             demo3 = demo * demo2;
-            Console.WriteLine(demo3.HxZ0AgSj());
+            Console.WriteLine(demo3.Out());
             Console.WriteLine("(-2-3i)/(3+4i):");
             demo3 = demo / demo2;
-            Console.WriteLine(demo3.HxZ0AgSj());
+            Console.WriteLine(demo3.Out());
             Console.WriteLine("(-2-3i)^2");
-            demo.Ae3n0GHZ(2);
-            Console.WriteLine(demo.HxZ0AgSj());
+            demo.PowerOn(2);
+            Console.WriteLine(demo.Out());
             Console.Read();
         }
     }
 }
+
