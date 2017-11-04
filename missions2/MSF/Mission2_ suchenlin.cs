@@ -1,74 +1,174 @@
 ﻿//CQU@苏晨林
-//MSC第一次培训作业
-//也是我的第二个不算成功的C#程序，可喜可贺
-//上一次不算的程序，简易的万圣节主题计算器，已经被人道毁灭了，可喜可贺
-//Start Time：10/31/2017 23:52
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+//MSC第一次培训作业修改版
+//我们组经过了长时间的讨论后，完成这次任务
+//是我的第一个比较完善的C#程序，可喜可贺
+//只算不完善的程序，已经被人道毁灭了，可喜可贺
+//Start Time：11/05/2017 00:49
+using System;//于是经过讨论后，就用了这一个
+
 
 
 namespace SMiku_Complex_counter
 {
-    class Complex_counter
+    public class Complex_counter
     {
         //定义实部与虚部
-        double real = 0;
-        double imaginary = 0;
+        public double Real { get; set; } = 0.0;
+        public double Imaginary { get; set; } = 0.0;
 
-        public Complex_counter(double real_1, double imaginary_1)
+        //加法重定义
+        public static Complex_counter operator +(Complex lhs, Complex rhs)//当两个数均为复数时
         {
-            this.real = real_1;
-            this.imaginary = imaginary_1;
+            return new Complex_counter(lhs.Real + rhs.Real, lhs.Imaginary + rhs.Imaginary);
         }
-        public Complex_counter Add (Complex_counter num1)//加法
+        public static Complex_counter operator +(double lhs, Complex rhs)//当第一个实数第二个复数
         {
-            double x;
-            double y;
-            x = num1.real + real;
-            y = num1.imaginary + imaginary;
-            return new Complex_counter(x, y);
+            return new Complex_counter(lhs + rhs.Real, rhs.Real);
         }
-        public Complex_counter Sub(Complex_counter num1)//减法
+        public static Complex_counter operator +(Complex lhs, double rhs)//第一个复数第一个实数
         {
-            double x;
-            double y;
-            x = num1.real - real;
-            y = num1.imaginary - imaginary;
-            return new Complex_counter(x, y);
+            return rhs + lhs;
         }
-        public Complex_counter Mul(Complex_counter num1)//乘法
+
+        //减法重定义
+        public static Complex operator -(Complex lhs, Complex rhs)//复复
         {
-            double x;
-            double y;
-            x = num1.real * real - num1.imaginary * imaginary;
-            y = num1.imaginary * imaginary + num1.real * imaginary;
-            return new Complex_counter(x, y);
+            return new Complex(lhs.Real - rhs.Real, lhs.Imaginary - rhs.Imaginary);
         }
-        public Complex_counter Div(Complex_counter num1)//除法
+        public static Complex operator -(Complex lhs, double rhs)//复实
         {
-            double x;
-            double y;
-            x = (num1.real * real + num1.imaginary * imaginary) / (num1.imaginary * num1.imaginary + num1.real * num1.real);
-            y = (num1.real * imaginary - num1.imaginary * real) / (num1.imaginary * num1.imaginary + num1.real * num1.real);
-            return new Complex_counter(x, y);
+            return new Complex(lhs.Real - rhs, lhs.Real);
         }
+        public static Complex operator -(double lhs, Complex rhs)//实复
+        {
+            return new Complex(lhs - rhs.Real, -rhs.Real);
+        }
+
+        //乘法重定义
+        public static Complex operator *(Complex lhs, Complex rhs)//复复
+        {
+            double real2 = lhs.Real * rhs.Real - lhs.Imaginary * rhs.Imaginary;
+            double imaginary2 = lhs.Real * rhs.Imaginary + lhs.Imaginary * rhs.Real;
+            return new Complex(real2, imaginary2);
+        }
+        public static Complex operator *(double lhs, Complex rhs)//实复
+        {
+            return new Complex(rhs.Real * lhs, rhs.Imaginary * lhs);
+        }
+        public static Complex operator *(Complex lhs, double rhs)//复实
+        {
+            return rhs * lhs;
+        }
+
+        //除法重定义
+        public static Complex operator /(Complex lhs, double rhs)//当第一个数为复数，第二个数为零
+        {
+            if (rhs == 0)
+            {
+                throw new DivideByZeroException();
+            }
+            return new Complex(lhs.Real / rhs, lhs.Imaginary / rhs);
+        }
+        public static Complex operator /(Complex lhs, Complex rhs)//复复
+        {
+            if (rhs.Real == 0 && rhs.Imaginary == 0)//当其中一个复数的的实部和虚部都为零时错误
+            {
+                throw new DivideByZeroException();
+            }
+            if (rhs.Imaginary == 0)//当第二个复数的虚部为零时
+            {
+                return new Complex(lhs.Real / rhs.Real, lhs.Imaginary / rhs.Real);
+            }
+            return (lhs * rhs.Conjunction()) / (rhs.Real * rhs.Real + rhs.Imaginary * rhs.Imaginary);// 调用共轭复数
+        }
+        public static Complex operator /(double lhs, Complex rhs)
+        {
+            return new Complex(lhs, 0) / rhs;
+        }
+
+        //定义共轭复数
+        public Complex Conjunction()
+        {
+            return new Complex(Real, -Imaginary);
+        }
+
+        // 整数乘方： 反复自乘
+        public static Complex Power(Complex x, int y)
+        {
+            Complex temp = x;
+            if (y == 0)
+            {
+                return new Complex(1, 0);
+            }
+            else if (y > 0)
+            {
+                for (int i = 1; i < y; i++)
+                {
+                    temp *= x;
+                }
+            }
+            else
+            {
+                temp = new Complex(1, 0) / x;
+                for (int i = -1; i > y; i--)
+                {
+                    temp /= x;
+                }
+            }
+            return temp;
+        }
+
+        // 默认构造函数
+        public Complex_counter() { }
+
+        //构造函数
+        public Complex_counter(double real, double imaginary)
+        {
+            Real = real;
+            Imaginary = imaginary;
+        }
+
+        // 重载 ToString() 方法
+        public override string ToString()
+        {
+            string str = "";
+            if (Real == 0 && Imaginary == 0)
+            {
+                return "0";
+            }
+            if (Real != 0)
+            {
+                str += String.Format("{0:G}", Real);
+            }
+            if (Imaginary != 0)
+            {
+                if (Imaginary < 0)
+                {
+                    str += "-";
+                }
+                else
+                {
+                    if (Real != 0)
+                    {
+                        str += "+";
+                    }
+                }
+            }
+            if (Imaginary != 0)
+            {
+                str += ((Imaginary == 1) || (Imaginary == -1) ? "i" : String.Format("{0:G}i", Math.Abs(Imaginary)));
+            }
+            return str;
+        }
+
 
     }
 }
-//Complete time: 11/01/2017 00:58
-//因为本人数学能力有限，对于虚数整数幂的运算、重载运算符、欧拉公式上都没有学习（海南的高考数学）
-//目前也仅仅是只完成了加减乘除的实现，甚至连运行输出都做不到，也就仅仅是这样了
+//Complete time: 11/05/2017 01:32
+//经过我们组的讨论，我们终于完成了
+//虽然复数的实数次方还是没弄出来
+//我觉得我应该背锅
+//讨论到一半我去接电话了
+//后面就都散了
+//唉
+
