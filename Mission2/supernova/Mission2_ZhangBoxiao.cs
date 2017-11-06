@@ -5,24 +5,23 @@ using System.Text;
 using System.Threading.Tasks;
 
 /**     
- *      Author: Dexfire 
- *             @ 2017/10/30
+ *      Author: 张博虓
  */
 namespace ComplexCalculator
 {   
-    class ComplexNumber
+    class Complex
     {
         //实部与虚部
         float real = 0;
         float imaginary = 0;
 
         //0复数
-        private ComplexNumber()
+        private Complex()
         {
         }
 
-        //构造函数 需要提供实部和虚部的值
-        public ComplexNumber(float real,float imaginary)
+        //构造函数
+        public Complex(float real,float imaginary)
         {
             this.real = real;
             this.imaginary = imaginary;
@@ -31,50 +30,49 @@ namespace ComplexCalculator
         
         //复数加法
         //实部虚部分别相加
-        public static ComplexNumber operator +(ComplexNumber complex1, ComplexNumber complex2)
+        public static Complex operator +(Complex com1, Complex com2)
         {
-            return new ComplexNumber(complex1.real + complex2.real,complex1.imaginary + complex2.imaginary);
+            return new Complex(com1.real + com2.real,com1.imaginary + com2.imaginary);
         }
 
         //复数减法
         //实部虚部分别相减
-        public static ComplexNumber operator -(ComplexNumber complex1, ComplexNumber complex2)
+        public static Complex operator -(Complex com1, Complex com2)
         {
-            return new ComplexNumber(complex1.real - complex2.real, complex1.imaginary - complex2.imaginary);
+            return new Complex(com1.real - com2.real, com1.imaginary - com2.imaginary);
         }
 
         //复数乘法
         // （a+bi)(c+di)=ac+bd + (ad+bc)i
-        public static ComplexNumber operator *(ComplexNumber complex1, ComplexNumber complex2)
+        public static Complex operator *(Complex com1, Complex com2)
         {
-            float real = complex1.real * complex2.real + complex1.imaginary * complex2.imaginary;
-            float imaginary = complex1.real * complex2.imaginary + complex1.imaginary * complex2.real;
-            return new ComplexNumber(real,imaginary);
+            float real = com1.real * com2.real + com1.imaginary * com2.imaginary;
+            float imaginary = com1.real * com2.imaginary + com1.imaginary * com2.real;
+            return new Complex(real,imaginary);
         }
 
         //复数除法
-        public static ComplexNumber operator /(ComplexNumber complex1, ComplexNumber complex2)
+        public static Complex operator /(Complex com1, Complex com2)
         {
-
-            return (complex1* GetConjugateComplex(complex2)) /(complex2.real*complex2.real-complex2.imaginary*complex2.imaginary);
+            return (com1* GetConjugateComplex(com2)) /(com2.real*com2.real-com2.imaginary*com2.imaginary);
         }
 
         //复数的数乘
         // c(a+bi) = ac + bci
-        public static ComplexNumber operator *(ComplexNumber complex,float i)
+        public static Complex operator *(Complex complex,float i)
         {
-            return new ComplexNumber(complex.real*i,complex.imaginary *i);
+            return new Complex(complex.real*i,complex.imaginary *i);
         }
         //数乘满足交换律，数乘函数
-        public static ComplexNumber operator *(float i,ComplexNumber complex)
+        public static Complex operator *(float i,Complex complex)
         {
             return complex*i;
         }
 
         //复数除以常数的运算
-        public static ComplexNumber operator /(ComplexNumber complex,float div)
+        public static Complex operator /(Complex complex,float div)
         {
-            return new ComplexNumber(complex.real/div, complex.imaginary/div);
+            return new Complex(complex.real/div, complex.imaginary/div);
         }
 
         /**
@@ -82,7 +80,7 @@ namespace ComplexCalculator
          *      (a+bi)^n = C(n,k)a^k * b^(n-k) * i^(n-k);
          *      
          */
-        public static ComplexNumber operator ^(ComplexNumber complex, int pow)
+        public static Complex operator ^(Complex complex, int pow)
         {
             //分类讨论
             if (pow == 0) //指数等于零
@@ -92,11 +90,11 @@ namespace ComplexCalculator
                     throw new Exception("0^0 = 0/0 is invaild.");
                 }
                 //除零以外任何数的零次方等于1，返回值为 1
-                return new ComplexNumber(1,0);
+                return new Complex(1,0);
             } else if (pow > 0) //指数大于零
             {
                 //用于储存结果的复数实例
-                ComplexNumber result =  new ComplexNumber();
+                Complex result =  new Complex();
                 //根据二项式展开公式 (a+bi)^n = C(n,k) * a^k * b^(n-k) * i^(n-k) 计算
                 for (int k=0;k<=pow;k++)
                 {
@@ -106,14 +104,14 @@ namespace ComplexCalculator
             }
             else //指数小于零
             {
-                return new ComplexNumber(1, 0) / complex^-pow;
+                return new Complex(1, 0) / complex^-pow;
             }
         }
 
         //共轭复数的计算
-        private static ComplexNumber GetConjugateComplex(ComplexNumber src)
+        private static Complex GetConjugateComplex(Complex src)
         {
-            return new ComplexNumber(src.real,-src.imaginary);
+            return new Complex(src.real,-src.imaginary);
         }
 
 
@@ -131,16 +129,16 @@ namespace ComplexCalculator
          *      对n>0    直接求模
          *      对n=0    返回1
          *      对n<0   令t=-n,  那么t>0,
-         *      i^n = (i^-1)^n = (-i)^n=(-1)^-n * i^-n = （-1）^t * i ^t
+         *      i^-n = (i^-1)^n = (-i)^n=(-1)^-n * i^-n = （-1）^t * i ^t
          */
-        private static ComplexNumber IPow(int n)
+        private static Complex IPow(int n)
         {
             if (n<0)
             {
                 return (float)Math.Pow(-1,-n)* IPow(-n);
             }else if (n == 0)
             {
-                return new ComplexNumber(1, 0);
+                return new Complex(1, 0);
             }
             //取第一周期
             int standlizedN = n % 4;
@@ -160,12 +158,11 @@ namespace ComplexCalculator
                 case 4:real = 1;
                     break;
             }
-            return new ComplexNumber(real,imaginary);
+            return new Complex(real,imaginary);
         }
         
         //组合数计算函数C(n,k)
-        //C(n,k) = n!/k!
-        //居然记错了... 是C(n,k)=n!/k!(n-k)!
+        //C(n,k)=n!/k!(n-k)!
         private static int CombineNumber(int n,int k)
         {
             int result = 1;
@@ -181,7 +178,7 @@ namespace ComplexCalculator
             return result;
         }
 
-        //喷字函数
+		
         public override String ToString()
         {
             return "("+real.ToString() + ") + (" + imaginary.ToString() + ") i ";
