@@ -1,1 +1,197 @@
+<Window x:Class="WPF计算器.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="我的简单计算器" Height="700" Width="480" ResizeMode="CanMinimize">
+    <Grid Margin="0,0,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <!--<Button Name="Ans" FontSize="30" Grid.Column="1" Grid.Row="1" Content="Ans" Click="Ans_Click_1"/>
+            <StackPanel Grid.Row="0" Grid.ColumnSpan="4" Margin="0">
+                <TextBlock Name="gongshi" Height="Auto" Margin="0,10,0,0" Background="#FF5D4D4D" HorizontalAlignment="Right" FontSize="36" Width="470" Foreground="White"/>
+            <TextBlock Name="jiguo" Height="80" Margin="0" Background="#ff5d4d4d" HorizontalAlignment="Right" Width="470" FontSize="36" Foreground="White"></TextBlock>
+        </StackPanel>
+        -->
+        <TextBlock Name="ss" Grid.Row="0" Grid.ColumnSpan="4" Width="470" Height="Auto" Margin="0,0,0,0" Background="#FF5D4D4D" HorizontalAlignment="Right" FontSize="36" Foreground="White"/>
+        <TextBlock Name="Output" Grid.Row="0" Grid.ColumnSpan="4" Height="Auto" Margin="0,0,0,0" Background="#FF5D4D4D" HorizontalAlignment="Right" FontSize="36" Foreground="White"/>
+        <TextBlock Name="Inputline" Grid.Row="0" Grid.ColumnSpan="4" Height="60" Margin="0" Background="#FF5D4D4D" HorizontalAlignment="Right" FontSize="36" Foreground="White"/>
+        <Button Content="7" FontSize="50" Grid.Row="2" Grid.Column="0" Click="DigiBtn_Click" Name="B7" />
+        <Button Content="8" FontSize="50" Grid.Row="2" Grid.Column="1" Click="DigiBtn_Click" Name="B8" />
+        <Button Content="9" FontSize="50" Grid.Row="2" Grid.Column="2" Click="DigiBtn_Click" Name="B9" />
+        <Button Content="4" FontSize="50" Grid.Row="3" Grid.Column="0" Click="DigiBtn_Click" Name="B4" />
+        <Button Content="5" FontSize="50" Grid.Row="3" Grid.Column="1" Click="DigiBtn_Click" Name="B5" />
+        <Button Content="6" FontSize="50" Grid.Row="3" Grid.Column="2" Click="DigiBtn_Click" Name="B6" />
+        <Button Content="1" FontSize="50" Grid.Row="4" Grid.Column="0" Click="DigiBtn_Click" Name="B1" />
+        <Button Content="2" FontSize="50" Grid.Row="4" Grid.Column="1" Click="DigiBtn_Click" Name="B2" />
+        <Button Content="3" FontSize="50" Grid.Row="4" Grid.Column="2" Click="DigiBtn_Click" Name="B3" />
+        <Button Content="." FontSize="50" Grid.Row="5" Grid.Column="0" Click="DigiBtn_Click" Name="B" />
+        <Button Content="0" FontSize="50" Grid.Row="5" Grid.Column="1" Click="DigiBtn_Click" Name="B0" />
+        <Button Name="divide" FontSize="50" Content="/" Grid.Column="3" Grid.Row="2" Click="Operation_Click"/>
+        <Button Name="Multiply" FontSize="50" Content="*" Grid.Column="3" Grid.Row="3" Click="Operation_Click"/>
+        <Button Name="Minus" FontSize="50" Content="-" Grid.Column="3" Grid.Row="4" Click="Operation_Click"/>
+        <Button Name="Add" FontSize="50" Content="+" Grid.Column="3" Grid.Row="5" Click="Operation_Click"/>
+        <Button Name="result" FontSize="50" Grid.Column="2" Grid.Row="5" Click="Result_Click" Content="="/>
+        <Button Name="del" FontSize="30" Grid.Column="3" Grid.Row="1" Content="AC" Click="Del_Click" Background="#FFEE0E0E"/>
+        <Button Name="tuige" FontSize="30" Grid.Column="2" Grid.Row="1" Content="BACK" Click="Back_Click"/>
+        <Button Name="Ans" FontSize="30" Grid.Column="1" Grid.Row="1" Content="Ans" Click="Ans_Click"/>
 
+    </Grid>
+</Window>
+
+
+
+
+
+
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace WPF计算器
+{
+    /// <summary>
+    /// MainWindow.xaml 的交互逻辑
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        //上一次的操作符保存
+        private string Operation = "";
+        //计算结果保存
+        private double resultnum = 0.0;
+        //分别保留两个操作数
+        private string tempnum = "";
+        private string tempnum1 = "";
+        //Ans键专用
+        private string ans = "";
+        private string Ans_SignOper = "0";
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+        //操作
+        private void OperationNum(string s)
+        {
+            switch (Operation)
+            {
+                case "=":
+                    Inputline.Text = s;
+                    Output.Text = s;
+                    break;
+                case "":
+                    Output.Text = s;
+                    break;
+                case "+":
+                    resultnum = double.Parse(tempnum1) + double.Parse(s);
+                    Output.Text = resultnum.ToString();
+                    break;
+                case "-":
+                    resultnum = double.Parse(tempnum1) - double.Parse(s);
+                    Output.Text = resultnum.ToString();
+                    break;
+                case "*":
+                    resultnum = double.Parse(tempnum1) * double.Parse(s);
+                    Output.Text = resultnum.ToString();
+                    break;
+                case "/":
+                    if (double.Parse(s) != 0.0)
+                    {
+                        resultnum = double.Parse(tempnum1) / double.Parse(s);
+                        Output.Text = resultnum.ToString();
+                    }
+                    else
+                    {
+                        Output.Text = "ERROR";
+                    }
+                    break;
+                default: break;
+            }
+        }
+        private void DigiBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string s = ((Button)sender).Content.ToString();
+            Inputline.Text += s;
+            tempnum += s;
+            OperationNum(tempnum);
+            Ans_SignOper = "1";
+        }
+        private void Operation_Click(object sender, RoutedEventArgs e)
+        {
+            string s = ((Button)sender).Content.ToString();
+            if (Operation == "=")
+            {
+                Inputline.Text = Output.Text;
+            }
+            Inputline.Text += s;
+            tempnum1 = Output.Text;
+            tempnum = "";
+            Operation = s;
+            Ans_SignOper = "0";
+        }
+        private void Result_Click(object sender, RoutedEventArgs e)
+        {
+            Inputline.Text += "=";
+            Operation = "=";
+            Ans_SignOper = "0";
+            ans = Output.Text;
+        }
+        private void Del_Click(object sender, RoutedEventArgs e)
+        {
+            Output.Text = "";
+            Inputline.Text = "";
+            Operation = "";
+            tempnum1 = "";
+            tempnum = "";
+        }
+        private void Ans_Click(object sender, RoutedEventArgs e)
+        {
+            if (Ans_SignOper == "0" && ans != "") 
+            {
+                Inputline.Text += "Ans";
+                OperationNum(ans);
+            }
+        }
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            int len = Inputline.Text.Length;
+            int len1 = tempnum.Length;
+            string s = Inputline.Text.Substring(len-1);
+            if (len > 0)
+            {
+                if (s == "+" || s == "-" || s == "*" || s == "/" || s == "=")
+                {
+                    Operation = "";
+                }
+                else
+                {
+                    tempnum=tempnum.Substring(0, len1 - 1);
+                }
+                Inputline.Text = Inputline.Text.Substring(0, len- 1);
+            }
+        }
+    }
+}
