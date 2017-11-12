@@ -1,0 +1,15 @@
+E:\程序们\MSC\辣鸡计算器\辣鸡计算器\obj\Debug\辣鸡计算器.csprojResolveAssemblyReference.cache
+E:\程序们\MSC\辣鸡计算器\辣鸡计算器\obj\Debug\MainWindow.g.cs
+E:\程序们\MSC\辣鸡计算器\辣鸡计算器\obj\Debug\App.g.cs
+E:\程序们\MSC\辣鸡计算器\辣鸡计算器\obj\Debug\辣鸡计算器_MarkupCompile.cache
+E:\程序们\MSC\辣鸡计算器\辣鸡计算器\obj\Debug\辣鸡计算器_MarkupCompile.lref
+E:\程序们\MSC\辣鸡计算器\辣鸡计算器\bin\Debug\辣鸡计算器.exe.config
+E:\程序们\MSC\辣鸡计算器\辣鸡计算器\bin\Debug\辣鸡计算器.exe
+E:\程序们\MSC\辣鸡计算器\辣鸡计算器\bin\Debug\辣鸡计算器.pdb
+E:\程序们\MSC\辣鸡计算器\辣鸡计算器\obj\Debug\MainWindow.baml
+E:\程序们\MSC\辣鸡计算器\辣鸡计算器\obj\Debug\辣鸡计算器.g.resources
+E:\程序们\MSC\辣鸡计算器\辣鸡计算器\obj\Debug\辣鸡计算器.Properties.Resources.resources
+E:\程序们\MSC\辣鸡计算器\辣鸡计算器\obj\Debug\辣鸡计算器.csproj.GenerateResource.Cache
+E:\程序们\MSC\辣鸡计算器\辣鸡计算器\obj\Debug\辣鸡计算器.csproj.CoreCompileInputs.cache
+E:\程序们\MSC\辣鸡计算器\辣鸡计算器\obj\Debug\辣鸡计算器.exe
+E:\程序们\MSC\辣鸡计算器\辣鸡计算器\obj\Debug\辣鸡计算器.pdb
