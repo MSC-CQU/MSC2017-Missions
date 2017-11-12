@@ -1,0 +1,14 @@
+C:\Users\i\source\repos\Caculator\Caculator\bin\Debug\Caculator.exe.config
+C:\Users\i\source\repos\Caculator\Caculator\bin\Debug\Caculator.exe
+C:\Users\i\source\repos\Caculator\Caculator\bin\Debug\Caculator.pdb
+C:\Users\i\source\repos\Caculator\Caculator\obj\Debug\MainWindow.g.cs
+C:\Users\i\source\repos\Caculator\Caculator\obj\Debug\App.g.cs
+C:\Users\i\source\repos\Caculator\Caculator\obj\Debug\Caculator_MarkupCompile.cache
+C:\Users\i\source\repos\Caculator\Caculator\obj\Debug\Caculator_MarkupCompile.lref
+C:\Users\i\source\repos\Caculator\Caculator\obj\Debug\MainWindow.baml
+C:\Users\i\source\repos\Caculator\Caculator\obj\Debug\Caculator.g.resources
+C:\Users\i\source\repos\Caculator\Caculator\obj\Debug\Caculator.Properties.Resources.resources
+C:\Users\i\source\repos\Caculator\Caculator\obj\Debug\Caculator.csproj.GenerateResource.Cache
+C:\Users\i\source\repos\Caculator\Caculator\obj\Debug\Caculator.csproj.CoreCompileInputs.cache
+C:\Users\i\source\repos\Caculator\Caculator\obj\Debug\Caculator.exe
+C:\Users\i\source\repos\Caculator\Caculator\obj\Debug\Caculator.pdb
